@@ -1,58 +1,53 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import SasslintPlugin from 'sasslint-webpack-plugin';
-import path from 'path';
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import path from "path";
 
 const webpackExampleConfig = {
   context: __dirname,
-  devtool: 'source-map',
-  target: 'web',
+  devtool: "source-map",
+  target: "web",
   entry: {
-    example: './example/js/index.jsx',
+    example: "./example/js/index.jsx",
   },
   output: {
-    filename: '[name].js',
+    filename: "[name].js",
   },
   module: {
     rules: [
       {
         include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'example'),
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "example"),
         ],
-        loader: 'babel-loader',
+        loader: "babel-loader",
         test: /\.jsx?$/,
-      }, {
+      },
+      {
         include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'example'),
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "example"),
         ],
         loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+          fallback: "style-loader",
+          use: ["css-loader", "postcss-loader"],
         }),
-        test: /\.scss$/,
-      }, {
+        test: /\.css$/,
+      },
+      {
         include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'example'),
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "example"),
         ],
-        loader: 'eslint-loader',
+        loader: "eslint-loader",
         test: /\.jsx?$/,
-        enforce: 'pre',
+        enforce: "pre",
       },
     ],
   },
-  plugins: [
-    new ExtractTextPlugin('[name].css'),
-    new SasslintPlugin({
-      glob: './src/scss/**/*.scss',
-      ignorePlugins: ['extract-text-webpack-plugin'],
-    }),
-  ],
+  plugins: [new ExtractTextPlugin("[name].css")],
   resolve: {
-    modules: ['node_modules'],
-    extensions: ['.js', '.jsx'],
+    modules: ["node_modules"],
+    extensions: [".js", ".jsx"],
   },
 };
 
