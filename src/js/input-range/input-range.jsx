@@ -614,7 +614,7 @@ export default class InputRange extends React.Component {
           minValue={minValue}
           onSliderDrag={this.handleSliderDrag}
           onSliderKeyDown={this.handleSliderKeyDown}
-          percentage={key === 'max' && this.maxValue === this.minValue ? 1 : percentage}
+          percentage={key === 'max' && maxValue === minValue ? 1 : percentage}
           type={key}
           value={value} />
       );
@@ -654,7 +654,9 @@ export default class InputRange extends React.Component {
   render() {
     const componentClassName = this.getComponentClassName();
     const values = valueTransformer.getValueFromProps(this.props, this.isMultiValue());
-    const percentages = this.maxValue=== this.minValue? {max:1,min:0} : valueTransformer.getPercentagesFromValues(values, this.props.minValue, this.props.maxValue);
+    const percentages = this.props.maxValue === this.props.minValue
+    ? { max: 1, min: 0 }
+    : valueTransformer.getPercentagesFromValues(values, this.props.minValue, this.props.maxValue);
 
     return (
       <div
